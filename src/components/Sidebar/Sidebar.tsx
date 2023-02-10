@@ -65,7 +65,7 @@ export const Sidebar = ({
     }
     let abortController = new AbortController();
     setLoading(true);
-    const url = `http://api.weatherapi.com/v1/search.json?${new URLSearchParams(
+    const url = `https://api.weatherapi.com/v1/search.json?${new URLSearchParams(
       {
         key: import.meta.env.VITE_WEATHER_API_KEY,
         q: city,
