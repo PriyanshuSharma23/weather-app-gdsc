@@ -11,11 +11,19 @@
     overflow-y: scroll;
 }
 
+.sidebar__close_btn {
+    fill: var(--danger-color);
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    padding-right: 0.2rem;
+}
+
 .input-group {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    padding-inline: 1rem;
+    padding-inline-start: 1rem;
 }
 
 .input-group input {
@@ -89,12 +97,6 @@
 }
 
 @media screen and (max-width: 600px) {
-    .sidebar {
-        width: 50%;
-    }
-}
-
-@media screen and (max-width: 400px) {
     .sidebar {
         width: 100%;
     }

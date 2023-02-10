@@ -1,9 +1,9 @@
 import "./morestats.css";
-import { useCurrentWeather } from "../../hooks/useCurrentWeather";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useCurrWeather } from "../../contexts/currWeatherContext";
 
 export const MoreStats = () => {
-  const { currentWeather } = useCurrentWeather();
+  const { currentWeather } = useCurrWeather();
 
   const content = [
     ["pm10", currentWeather?.current.air_quality.pm10.toFixed(2), "😷"],
@@ -33,6 +33,10 @@ export const MoreStats = () => {
       "🌑",
     ],
   ];
+
+  useEffect(() => {
+    console.log("currentWeather MoreStats.tsx", currentWeather);
+  }, [currentWeather]);
 
   return (
     <div className="more-stats">

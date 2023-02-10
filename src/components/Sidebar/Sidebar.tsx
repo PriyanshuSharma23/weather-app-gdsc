@@ -108,45 +108,105 @@ export const Sidebar = ({
     };
   }, [clickedCity]);
 
+  useEffect(() => {
+    return () => {
+      document.removeEventListener("touchend", () => {});
+    };
+  }, []);
+
   return (
     <OutsideAlerter
       cb={() => {
         setSidebarOpen(false);
       }}
     >
-      <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
-        <div className="input-group">
-          <DebounceInput
-            type="text"
-            className=""
-            placeholder="Enter City Name"
-            value={city}
-            debounceTimeout={1000}
-            onChange={(e) => {
-              setCity(e.target.value);
+      <aside
+        className={`sidebar ${sidebarOpen ? "open" : ""}`}
+        // left swipe
+        onTouchStart={(e) => {
+          const touch = e.touches[0];
+          const startX = touch.clientX;
+          const startY = touch.clientY;
+
+          const handleTouchMove = (e: any) => {
+            const touch = e.touches[0];
+            const endX = touch.clientX;
+            const endY = touch.clientY;
+            const diffX = startX - endX;
+            const diffY = startY - endY;
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+              if (diffX > 0) {
+                setSidebarOpen(false);
+              }
+            }
+          };
+          document.addEventListener("touchmove", handleTouchMove);
+          document.addEventListener("touchend", () => {
+            document.removeEventListener("touchmove", handleTouchMove);
+          });
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            className="input-group"
+            style={{
+              flexGrow: 1,
             }}
-          />
-          <button disabled className="search-button">
-            <svg
-              stroke="currentColor"
-              fill="none"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <desc></desc>
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M11 18l-2 -1l-6 3v-13l6 -3l6 3l6 -3v10"></path>
-              <path d="M9 4v13"></path>
-              <path d="M15 7v5"></path>
-              <circle cx="16.5" cy="17.5" r="2.5"></circle>
-              <path d="M18.5 19.5l2.5 2.5"></path>
-            </svg>
-          </button>
+          >
+            <DebounceInput
+              type="text"
+              className=""
+              placeholder="Enter City Name"
+              value={city}
+              debounceTimeout={1000}
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+            />
+            <button disabled className="search-button">
+              <svg
+                stroke="currentColor"
+                fill="none"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <desc></desc>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M11 18l-2 -1l-6 3v-13l6 -3l6 3l6 -3v10"></path>
+                <path d="M9 4v13"></path>
+                <path d="M15 7v5"></path>
+                <circle cx="16.5" cy="17.5" r="2.5"></circle>
+                <path d="M18.5 19.5l2.5 2.5"></path>
+              </svg>
+            </button>
+          </div>
+          <svg
+            stroke="currentColor"
+            fill="currentColor"
+            strokeWidth="0"
+            viewBox="0 0 1024 1024"
+            height="1em"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+            className="sidebar__close_btn"
+            onClick={() => {
+              setSidebarOpen(false);
+            }}
+          >
+            <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4-66.1.3c-4.4 0-8-3.5-8-8 0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 0 1-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4 66-.3c4.4 0 8 3.5 8 8 0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2 0 4.4-3.6 8-8 8z"></path>
+          </svg>
         </div>
 
         <div className="recommended">

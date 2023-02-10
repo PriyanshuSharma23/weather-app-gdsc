@@ -8,7 +8,7 @@ export function useTime() {
   useEffect(() => {
     let date = new Date();
     if (currentWeather) {
-      date = new Date(currentWeather.current.last_updated_epoch * 1000);
+      date = new Date(currentWeather.location.localtime);
     }
 
     const hours = date.getHours();
