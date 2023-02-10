@@ -5,6 +5,7 @@ const CurrWeatherContext = createContext<WeatherProps>({
   currentWeather: null,
   loading: true,
   error: undefined,
+  fetchCurrentWeather: () => null,
 });
 
 export function useCurrWeather() {

@@ -28,9 +28,7 @@ export const Temperature = () => {
 
       <div className="temperature__location">
         <p className="temperature__location_text">
-          {currWeather?.currentWeather?.location.name}, <br />
-          {currWeather?.currentWeather?.location.region}{" "}
-          {currWeather?.currentWeather?.location.region !== "" && "&nbsp;"}
+          {currWeather?.currentWeather?.location.name},<br />
           {currWeather?.currentWeather?.location.country}
         </p>
       </div>

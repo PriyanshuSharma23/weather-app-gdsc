@@ -5,36 +5,34 @@ import { useMemo } from "react";
 export const MoreStats = () => {
   const { currentWeather } = useCurrentWeather();
 
-  const content = useMemo(() => {
-    return [
-      ["pm10", currentWeather?.current.air_quality.pm10.toFixed(2), "😷"],
-      ["visibility", currentWeather?.current.vis_km.toString(), "㎞"],
-      [
-        "sunrise",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.sunrise,
-        "🌅",
-      ],
-      [
-        "sunset",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.sunset,
-        "🌇",
-      ],
-      [
-        "moonrise",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.moonrise,
-        "🌕",
-      ],
-      [
-        "moonset",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.moonset,
-        "🌑",
-      ],
-    ];
-  }, [currentWeather]);
+  const content = [
+    ["pm10", currentWeather?.current.air_quality.pm10.toFixed(2), "😷"],
+    ["visibility", currentWeather?.current.vis_km.toString(), "㎞"],
+    [
+      "sunrise",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.sunrise,
+      "🌅",
+    ],
+    [
+      "sunset",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.sunset,
+      "🌇",
+    ],
+    [
+      "moonrise",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.moonrise,
+      "🌕",
+    ],
+    [
+      "moonset",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.moonset,
+      "🌑",
+    ],
+  ];
 
   return (
     <div className="more-stats">
