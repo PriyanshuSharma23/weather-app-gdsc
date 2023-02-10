@@ -11,7 +11,7 @@ export function useTime() {
     if (hours >= 18 || hours <= 6) {
       setIsNight(true);
     } else {
-      setIsNight(!false);
+      setIsNight(false);
     }
   }, []);
 

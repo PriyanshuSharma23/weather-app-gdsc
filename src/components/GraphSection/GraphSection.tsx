@@ -1,6 +1,6 @@
 import "./graphsection.css";
 import { useEffect, useMemo, useState } from "react";
-import { Line, LineChart, XAxis, CartesianGrid } from "recharts";
+import { Line, LineChart, XAxis, CartesianGrid, Tooltip } from "recharts";
 import { useCurrWeather } from "../../contexts/currWeatherContext";
 import { useTemperatureContext } from "../../contexts/temperatureContext";
 import { useTime } from "../../hooks/useTime";
@@ -99,6 +99,8 @@ export const GraphSection = () => {
             position: "top",
             offset: 10,
             fontWeight: "bold",
+            fontSize: 12,
+            fill: isNight ? "#ffffff" : "#451200",
             formatter: (value: number) => {
               if (selectedKey === "temp") {
                 return mode === "celsius" ? `${value}°C` : `${value}°F`;
@@ -108,7 +110,7 @@ export const GraphSection = () => {
                 return `${value} kph`;
               }
             },
-            // make labels sparse
+            // stop label from getting cut off
           }}
         />
         <XAxis
@@ -120,6 +122,7 @@ export const GraphSection = () => {
           stroke={isNight ? "#ffffff22" : "#451200AA"}
           strokeDasharray="5 5"
         />
+        <Tooltip />
       </LineChart>
     </div>
   );
