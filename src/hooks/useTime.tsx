@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import { useCurrWeather } from "../contexts/currWeatherContext";
 
 export function useTime() {
   const [isNight, setIsNight] = useState(false);
+  const { currentWeather } = useCurrWeather();
 
   useEffect(() => {
-    const date = new Date();
+    let date = new Date();
+    if (currentWeather) {
+      date = new Date(currentWeather.location.localtime);
+    }
 
     const hours = date.getHours();
 
@@ -13,7 +18,7 @@ export function useTime() {
     } else {
       setIsNight(false);
     }
-  }, []);
+  }, [currentWeather]);
 
   return isNight;
 }

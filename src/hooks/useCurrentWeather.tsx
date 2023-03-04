@@ -6,13 +6,14 @@ export const useCurrentWeather = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const fetchCurrentWeather = async (
-    abortController: AbortController
-  ): Promise<Weather | null> => {
+    abortController: AbortController,
+    city?: City
+  ) => {
     setLoading(true);
     const url = `https://api.weatherapi.com/v1/forecast.json?${new URLSearchParams(
       {
         key: import.meta.env.VITE_WEATHER_API_KEY,
-        q: "auto:ip",
+        q: city != null ? `${city?.lat},${city?.lon}` : "auto:ip",
         days: "5",
         aqi: "yes",
       }
@@ -24,7 +25,7 @@ export const useCurrentWeather = () => {
       });
       const data = await response.json();
 
-      return data as Weather;
+      setCurrentWeather(data);
     } catch (error) {
       setError(error);
       return null;
@@ -36,22 +37,26 @@ export const useCurrentWeather = () => {
   useEffect(() => {
     let abortController = new AbortController();
 
-    fetchCurrentWeather(abortController).then((data) => {
-      setCurrentWeather(data);
-    });
+    fetchCurrentWeather(abortController);
 
     return () => {
       abortController.abort();
     };
   }, []);
 
-  return { currentWeather, error, loading };
+  return {
+    currentWeather,
+    error,
+    loading,
+    fetchCurrentWeather,
+  };
 };
 
 export interface WeatherProps {
   currentWeather: Weather | null;
   loading: boolean;
   error: any;
+  fetchCurrentWeather: (abortController: AbortController, city?: City) => void;
 }
 
 export interface Weather {
@@ -110,6 +115,17 @@ export interface AirQuality {
   "us-epa-index": number;
   "gb-defra-index": number;
 }
+
+export interface City {
+  id: number;
+  name: string;
+  region: string;
+  country: string;
+  lat: number;
+  lon: number;
+  url: string;
+}
+
 export interface Forecast {
   forecastday?: Forecastday[] | null;
 }

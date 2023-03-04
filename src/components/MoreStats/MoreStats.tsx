@@ -1,39 +1,41 @@
 import "./morestats.css";
-import { useCurrentWeather } from "../../hooks/useCurrentWeather";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useCurrWeather } from "../../contexts/currWeatherContext";
 
 export const MoreStats = () => {
-  const { currentWeather } = useCurrentWeather();
+  const { currentWeather } = useCurrWeather();
 
-  const content = useMemo(() => {
-    return [
-      ["pm10", currentWeather?.current.air_quality.pm10.toFixed(2), "😷"],
-      ["visibility", currentWeather?.current.vis_km.toString(), "㎞"],
-      [
-        "sunrise",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.sunrise,
-        "🌅",
-      ],
-      [
-        "sunset",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.sunset,
-        "🌇",
-      ],
-      [
-        "moonrise",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.moonrise,
-        "🌕",
-      ],
-      [
-        "moonset",
-        currentWeather?.forecast.forecastday &&
-          currentWeather.forecast.forecastday[0].astro.moonset,
-        "🌑",
-      ],
-    ];
+  const content = [
+    ["pm10", currentWeather?.current.air_quality.pm10.toFixed(2), "😷"],
+    ["visibility", currentWeather?.current.vis_km.toString(), "㎞"],
+    [
+      "sunrise",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.sunrise,
+      "🌅",
+    ],
+    [
+      "sunset",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.sunset,
+      "🌇",
+    ],
+    [
+      "moonrise",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.moonrise,
+      "🌕",
+    ],
+    [
+      "moonset",
+      currentWeather?.forecast.forecastday &&
+        currentWeather.forecast.forecastday[0].astro.moonset,
+      "🌑",
+    ],
+  ];
+
+  useEffect(() => {
+    console.log("currentWeather MoreStats.tsx", currentWeather);
   }, [currentWeather]);
 
   return (

@@ -5,7 +5,9 @@
     align-items: center;
     justify-content: space-between;
 
-    max-width: 300px;
+    padding: 0 1rem;
+
+    max-width: 400px;
     width: 100%;
 }
 
@@ -33,6 +35,6 @@
 }
 
 .temperatiure__condition_text {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: .8rem;
+    font-weight: 500;
 }
